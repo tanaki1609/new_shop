@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import Product, Category, SearchWord, Review
 
 
+class ProductItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
@@ -11,7 +17,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'product_count']
 
 
 class SearchWordSerializer(serializers.ModelSerializer):

@@ -15,6 +15,10 @@ class Category(AbstractNameModel):
     parent = models.ForeignKey('self', on_delete=models.CASCADE,
                                null=True, blank=True)
 
+    @property
+    def product_count(self):
+        return len(self.products.all())
+
 
 class SearchWord(AbstractNameModel):
     pass
@@ -22,7 +26,7 @@ class SearchWord(AbstractNameModel):
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE,
-                                 null=True, blank=True)
+                                 null=True, blank=True, related_name='products')  # category_id = 1
     search_words = models.ManyToManyField(SearchWord, blank=True)
     title = models.CharField(max_length=255)
     text = models.TextField(null=True, blank=True)
